@@ -2,9 +2,9 @@
 #+title:Readme
 
 ** The target audience
-This presentation was created for a Linux User Group and so is intended for a technically literate audience.
+This presentation introduces the new Gemini protocol (https://gemini.circumlunar.space). It was created for a Linux User Group and so is intended for a technical audience.
 
-It's intended to illustrate why someone might be interested in adopting a new protocol, the range of pages and tools already available, and links to interesting page, and to the Gemini home and Quickstart.
+It's intended to illustrate why someone might be interested in adopting a new protocol that's intentionally more limited than HTML/HTTP. It outlines the range of pages and tools already available, and has links to interesting pages, to the Gemini home, and to a very good getting started page (http://geminiquickst.art).
 
 There aren't many images in the presentation. Instead, when presenting this, I already had open:
   - the Lagrange Gemini browser with a dozen+ tabs open
