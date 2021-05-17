@@ -1,0 +1,108 @@
+#+options: toc:nil num:nil tags:nil prop:nil ^:{} \n:t
+
+# Discovered this later:
+#    https://github.com/fniessen/refcard-org-beamer
+
+# =================== BEAMER SETUP ============================
+#+startup: beamer
+
+#+MACRO: newline @@latex:\vspace{\baselineskip}@@ @@html:<br>@@
+#+MACRO: pause #+beamer: \pause
+
+# =============================================================================
+# BEAMER-SPECIFIC OPTIONS
+#+latex_class: beamer
+
+# =============================================================================
+# CHOOSE: PRESENTATION or HANDOUT (progressive reveal collapsed onto on slide)
+#
+# And choose aspect ratio (default is 4x3 - decomment next line for 16x9
+# Add aspectratio to props:
+# e.g. LaTeX_CLASS_options: [aspectratio=169]
+
+# Default is 4x3 and 12pt but 11pt is fine for slides
+
+# +latex_class_options: [presentation, 11pt]
+# +latex_class_options: [handout, a4paper, 11pt]
+
+# For handouts:
+# +latex_header: \usepackage[margin=1in]{geometry}
+
+# LATEX FONT SIZES in DECREASING size order:
+#  \normalsize  \small  \footnotesize  \scriptsize  \tiny
+
+# =============================================================================
+# Redefine the caption setup of the figures environment in the Beamer
+# class. so that 'Figure n' doesn't appear, just the caption
+
+#+latex_header: \setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+# =============================================================================
+# BEAMER THEMES with comments
+#
+# Possibles: Berlin/beaver
+# Nice: Boadilla + beaver or just Boadilla for plain headers
+# Not bad - CambridgeUS but has odd shadow under subheads
+# Not so good: Dresden as Double height header and footer
+# Not bad: Madrid+beaver (but really heavy dark blue subheads)
+# Not bad: Montpellier but too much clutter at the top
+
+# +BEAMER_THEME: AnnArbor (but double height footer)   
+# +BEAMER_THEME: Berlin
+# +BEAMER_THEME: Boadilla
+# +BEAMER_THEME: CambridgeUS
+# +BEAMER_THEME: Dresden
+#+BEAMER_THEME: Frankfurt
+# +BEAMER_THEME: Madrid
+# +BEAMER_THEME: Montpellier
+
+# beamer_color_theme: beaver
+# +BEAMER_COLOR_THEME: rose
+#+beamer_color_theme: orchid
+
+#+BEAMER_HEADER: \AtBeginSection{\frame{\sectionpage}}
+
+# LATEX-specific Settings
+#+latex_header: \usepackage{tcolorbox}
+#+latex_header: \usepackage{etoolbox}
+#+latex_header: \BeforeBeginEnvironment{minted}{\begin{tcolorbox}[boxrule=0.5pt}%
+#+latex_header: \AfterEndEnvironment{minted}{\end{tcolorbox}}%
+
+# ==============================================================================
+# Add a pale grey line under External URL links so it's clear that they're clickable.
+# The final one puts 
+#   - a light grey underline under URLs to indicate they're clickable
+#   - colours link's border really dark blue so it blends with the header background.
+#
+# Most are disabled but left here to show the various options
+# +beamer: \hypersetup{colorlinks=true,urlcolor=cyan,linkbordercolor=red,pdfborderstyle={/S/U/W 1}
+# +beamer: \hypersetup{colorlinks=true,linkbordercolor=red,pdfborderstyle={/S/U/W 1}}
+# +beamer: \hypersetup{colorlinks=false,linkcolor=,filecolor=001,urlcolor=red,anchorcolor=yellow,pdfborderstyle={/S/U/W 1}}
+# +beamer: \hypersetup{colorlinks=true,urlcolor=red,linkcolor=red,pdfborderstyle={/S/U/W 1}}
+# +beamer: \hypersetup{colorlinks=false,allbordercolors=,urlbordercolor=blue,pdfborderstyle={/S/U/W 0.5}}
+# +beamer: \hypersetup{colorlinks=false,allbordercolors=white,urlbordercolor=blue,pdfborderstyle={/S/U/W 0.5}}
+
+# Don't use #+beamer: for the following line - it won't work in files pulled
+# in via #+setupfile: Explanation is at the end of this file.
+
+#+latex_header_extra: \hypersetup{colorlinks=false,linkbordercolor={0.2 0.2 0.3},urlbordercolor={0.8 0.8 0.8},pdfborderstyle={/S/U/W 0.5}}
+
+
+
+# ===========================================================================
+#+begin_comment
+Why some directives don't seem to work in a setupfile
+
+Following from 
+  https://emacs-orgmode.gnu.narkive.com/Ty8wlt5n/o-help-understanding-what-s-imported-from-a-setupfile-file
+
+SETUPFILE exports keywords defined in `org-export-options-alist' 
+and in back-end specific options (i.e. :options-alist). 
+
+For example, in LATEX back-end the latter category is
+
+  LATEX_CLASS, LATEX_CLASS_OPTIONS, 
+  LATEX_HEADER, LATEX_HEADER_EXTRA,
+  LATEX_COMPILER,
+  DESCRIPTION, KEYWORDS, SUBTITLE, DATE
+#+end_comment
