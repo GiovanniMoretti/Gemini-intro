@@ -1,0 +1,22 @@
+#+title: An introduction to the Gemini ecosystem
+
+** About
+This presentation introduces the new Gemini protocol (https://gemini.circumlunar.space). It was created for a Linux User Group and so is intended for a technical audience.
+
+Why someone might be interested in a new protocol that's intentionally more limited than HTML/HTTP. It outlines the range of pages and tools already available, and has links to interesting pages, to the Gemini home, and to a very good getting started page (http://geminiquickst.art).
+
+** The presentation 
+- [[file:gemini-intro-No-animation.pdf]] - without staged 'on-click' reveals
+- [[file:gemini-intro.pdf]] - with the progressive reveal.
+
+The repository for this presentation is 
+ - https://github.com/GiovanniMoretti/Gemini-intro
+
+
+** License
+This presentation is Copyright (C) 2021 Giovanni Moretti. 
+
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+
+For more information, go to https://creativecommons.org/licenses/by-sa/4.0/
+

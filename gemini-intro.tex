@@ -1,4 +1,4 @@
-% Created 2021-05-17 Mon 20:27
+% Created 2021-05-17 Mon 21:24
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation, 11pt,  aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -40,8 +40,8 @@
 \maketitle
 
 \section*{State of the Web}
-\label{sec:orgda71557}
-\begin{frame}[label={sec:org555cada}]{The world-wide-web}
+\label{sec:orgfb4c9d1}
+\begin{frame}[label={sec:orgb4256bb}]{The world-wide-web}
 \begin{block}{Modern web browsers support dozens (hundreds) of standards}
 \begin{itemize}
 \item CSS\\
@@ -64,7 +64,7 @@
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org86f2207}]{Problems with WWW}
+\begin{frame}[label={sec:org75d15ba}]{Problems with WWW}
 \begin{block}{User tracking}
 \begin{itemize}
 \item cookies, tracking pixels, browser fingerprinting\\
@@ -95,8 +95,8 @@
 
 
 \section*{Gemini}
-\label{sec:orgca48a6f}
-\begin{frame}[label={sec:org79edcb9}]{Gemini Overview}
+\label{sec:org9c5bfe2}
+\begin{frame}[label={sec:org613f22c}]{Gemini Overview}
 \begin{block}{Started June 2019: Gemini is a new internet protocol that:}
 \begin{itemize}
 \item is heavier than gopher\\
@@ -114,7 +114,7 @@
 \end{frame}
 
 
-\begin{frame}[label={sec:org5c0a10f}]{Gemini Goals}
+\begin{frame}[label={sec:org8721613}]{Gemini Goals}
 \begin{tiny}
 FAQ: \href{gemini://gemini.circumlunar.space/docs/faq.gmi}{gemini://gemini.circumlunar.space/docs/faq.gmi}\\
 \end{tiny}
@@ -142,7 +142,7 @@ FAQ: \href{gemini://gemini.circumlunar.space/docs/faq.gmi}{gemini://gemini.circu
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgb0d32ef}]{Gopher - before the WWW}
+\begin{frame}[label={sec:org10aee87}]{Gopher - before the WWW}
 \begin{columns}
 \begin{column}{0.3\columnwidth}
 \begin{block}{Gopher predates the web}
@@ -164,7 +164,7 @@ FAQ: \href{gemini://gemini.circumlunar.space/docs/faq.gmi}{gemini://gemini.circu
 \end{frame}
 
 
-\begin{frame}[label={sec:orge5db9b4}]{Problems with Gopher}
+\begin{frame}[label={sec:orgb411f85}]{Problems with Gopher}
 \begin{itemize}
 \item intended just for text\\
 \item no support for other file types (images, video \ldots{})\\
@@ -182,7 +182,7 @@ FAQ: \href{gemini://gemini.circumlunar.space/docs/faq.gmi}{gemini://gemini.circu
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org2aaf323}]{Gemini goals}
+\begin{frame}[label={sec:org9f81b7d}]{Gemini goals}
 \begin{block}{Early Gemini discussion included three clear goals:}
 \begin{enumerate}
 \item it should be possible to remember the entire protocol spec\\
@@ -203,7 +203,7 @@ so it \alert{stays} simple and privacy conscious\\
 \end{frame}
 
 
-\begin{frame}[label={sec:org408f758}]{Gemini - Text formatting}
+\begin{frame}[label={sec:org631e463}]{Gemini - Text formatting}
 \begin{itemize}
 \item \alert{ALL} styling is done by the client\\
 \item text lines will be wrapped\\
@@ -213,7 +213,7 @@ so it \alert{stays} simple and privacy conscious\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org56261c7}]{Gemini clients control the page style}
+\begin{frame}[label={sec:org43f5d72}]{Gemini clients control the page style}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\textwidth]{images/threebrowsers.png}
@@ -221,7 +221,7 @@ so it \alert{stays} simple and privacy conscious\\
 \end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org451e5b9}]{Gemini Markup}
+\begin{frame}[label={sec:orgaeb5a5e}]{Gemini Markup}
 \begin{block}{There are five core elements:}
 \begin{itemize}
 \item \alert{Headings:} start with '\#' '\#\#' or '\#\#\#'.\\
@@ -245,7 +245,7 @@ so it \alert{stays} simple and privacy conscious\\
 \end{frame}
 
 
-\begin{frame}[label={sec:org9524579}]{Why not use a subset of HTML?}
+\begin{frame}[label={sec:org68bf616}]{Why not use a subset of HTML?}
 If the complexity of HTML is the problem, why not use a HTML subset:\\
 \begin{itemize}
 \item just headers, links and blockquote?\\
@@ -265,7 +265,7 @@ If the complexity of HTML is the problem, why not use a HTML subset:\\
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org801b271}]{Let's see what Gemini users have created}
+\begin{frame}[label={sec:orgbf04a71}]{Let's see what Gemini users have created}
 \begin{center}
 \begin{tabular}{c}
 Demo: let's explore Gemini Space\\
@@ -273,7 +273,7 @@ Demo: let's explore Gemini Space\\
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orgfd9c50d}]{What's the protocol: Gemini Request/Response}
+\begin{frame}[label={sec:orgb9981e1}]{What's the protocol: Gemini Request/Response}
 \begin{quote}
 A Gemini transaction: one request - one response:\\
 
@@ -291,7 +291,7 @@ A Gemini transaction: one request - one response:\\
 \end{quote}
 \end{frame}
 
-\begin{frame}[label={sec:orgb6a5140}]{Gemini Uploads are very limited}
+\begin{frame}[label={sec:orgaafd885}]{Gemini Uploads are very limited}
 Requests and response headers are limited to 1024 bytes\\
 
 \begin{block}{After connecting, Return status '10' uploads data from client:}
@@ -317,7 +317,7 @@ server Responds & \alert{20 text/gemini; charset=utf-8}\\
 
 
 
-\begin{frame}[label={sec:org638f154}]{TLS Certificate TOFU vs "Known" Validation}
+\begin{frame}[label={sec:orgbe06114}]{TLS Certificate TOFU vs "Known" Validation}
 \begin{block}{Gemini uses TLS v1.3 (ideally) or v1.2}
 \begin{itemize}
 \item no certificate authority required\\
@@ -336,8 +336,8 @@ server Responds & \alert{20 text/gemini; charset=utf-8}\\
 \end{frame}
 
 \section*{Gemini Software}
-\label{sec:orga67528b}
-\begin{frame}[label={sec:org969f7eb}]{Gemini Servers}
+\label{sec:orgce8442a}
+\begin{frame}[label={sec:org56834c9}]{Gemini Servers}
 Very little load on server - Raspberry Pi is fine\\
 
 \begin{block}{Jetforce - written in Python 3}
@@ -358,7 +358,7 @@ Very little load on server - Raspberry Pi is fine\\
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org44a48e1}]{Gemini Browsers}
+\begin{frame}[label={sec:orgd544e78}]{Gemini Browsers}
 There's \emph{lots} of gemini software: \url{https://gemini.circumlunar.space/software/}\\
 
 \begin{itemize}
@@ -374,7 +374,7 @@ There's \emph{lots} of gemini software: \url{https://gemini.circumlunar.space/so
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgbd0c8e6}]{Quick overview of Lagrange}
+\begin{frame}[label={sec:org2448b1b}]{Quick overview of Lagrange}
 Lagrange is the most feature-rich Gemini browser:\\
 \begin{itemize}
 \item it looks really nice!\\
@@ -388,7 +388,7 @@ Lagrange is the most feature-rich Gemini browser:\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orga2d2346}]{Gemini's not just text:  Images loaded on request}
+\begin{frame}[label={sec:org5ad0657}]{Gemini's not just text:  Images loaded on request}
 \begin{block}{Gemini's designer intended:}
 \begin{itemize}
 \item one request, one response: no hidden network activity\\
@@ -415,8 +415,8 @@ It has\\
 
 
 \section*{"Built on Gemini"}
-\label{sec:org5daeb9f}
-\begin{frame}[label={sec:orgcc90025}]{Subscribing to Gemini pages}
+\label{sec:org23dcc19}
+\begin{frame}[label={sec:orge9f3035}]{Subscribing to Gemini pages}
 Options: Browser detects change in page headings OR simple day-timestamp scheme:\\
 \begin{footnotesize}
 \begin{quote}
@@ -436,7 +436,7 @@ Welcome to my Gemlog, where you can read every Friday about my adventures in urb
 from \href{gemini://gemini.circumlunar.space/docs/companion/subscription.gmi}{gemini://gemini.circumlunar.space/docs/companion/subscription.gmi}\\
 \end{frame}
 
-\begin{frame}[label={sec:org0fb3997}]{What are people doing with it?}
+\begin{frame}[label={sec:org7c262ba}]{What are people doing with it?}
 Lots\\
 \begin{itemize}
 \item \alert{Gemini-to-Web proxy} - \url{https://portal.mozz.us}\\
@@ -457,7 +457,7 @@ Lots\\
 Mastodon: \url{https://mastodon.social/tags/gemini}\\
 \end{frame}
 
-\begin{frame}[label={sec:orgdc59568}]{Small Web (smolweb) related sites}
+\begin{frame}[label={sec:org4037343}]{Small Web (smolweb) related sites}
 \begin{itemize}
 \item \alert{Tilde sites:} e.g.\\
 \begin{itemize}
@@ -474,7 +474,7 @@ Super Dimensional Fortress:\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgf264ee5}]{Interesting Gemini sites}
+\begin{frame}[label={sec:org299d4cb}]{Interesting Gemini sites}
 \begin{itemize}
 \item \alert{Konpeito is quarterly Lo-fi hip-hop \& chill mixtape} - \href{gemini://konpeito.media}{gemini://konpeito.media}\\
 \item \alert{xj9 - tech blog} \href{gemini://sunshinegardens.org/~xj9}{gemini://sunshinegardens.org/~xj9}\\
@@ -492,7 +492,7 @@ Super Dimensional Fortress:\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgf254bcb}]{Conclusion}
+\begin{frame}[label={sec:orgf0e76b5}]{Conclusion}
 \begin{block}{Gemini}
 \begin{itemize}
 \item \alert{for users}\\
@@ -519,7 +519,7 @@ QUESTIONS?\\
 \end{center}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org9cfb259}]{Links \& Reuse/License}
+\begin{frame}[label={sec:org0d0295f}]{Links \& Reuse/License}
 \begin{block}{Links}
 \begin{itemize}
 \item \alert{Getting Started with Gemini:} \href{gemini://geminiquickst.art}{gemini://geminiquickst.art} \(\leftarrow\) \alert{Really Good}\\
