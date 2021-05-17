@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-05-17 Mon 20:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gemini - a quieter web experience</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giovanni Moretti - giovanni@reflections.co.nz" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Gemini - a quieter web experience
+<br />
+<span class="subtitle">niceness through simplicity</span>
+</h1>
+
+<div id="outline-container-org2802dfb" class="outline-2">
+<h2 id="org2802dfb">State of the Web</h2>
+<div class="outline-text-2" id="text-org2802dfb">
+</div>
+<div id="outline-container-orgb2e14bb" class="outline-3">
+<h3 id="orgb2e14bb">The world-wide-web</h3>
+<div class="outline-text-3" id="text-orgb2e14bb">
+</div>
+<ul class="org-ul">
+<li><a id="orge1e4ac7"></a>Modern web browsers support dozens (hundreds) of standards<br />
+<div class="outline-text-4" id="text-orge1e4ac7">
+<ul class="org-ul">
+<li>CSS<br /></li>
+<li>HTML 4, 5<br /></li>
+<li>Javascript<br /></li>
+<li>audio: .mp3 .ogg &#x2026;<br /></li>
+<li>graphics: .jpg .gif .png .svg &#x2026;<br /></li>
+<li>video display: .mp4 .webm &#x2026;<br /></li>
+<li>cookies<br /></li>
+<li>SSL encryption<br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="orgbd3f1c7"></a>Resultant complexity is problematic<br />
+<div class="outline-text-4" id="text-orgbd3f1c7">
+<ul class="org-ul">
+<li>implausible to start from scratch<br /></li>
+<li>security and validation is difficult/impossible<br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgc191f7a" class="outline-3">
+<h3 id="orgc191f7a">Problems with WWW</h3>
+<div class="outline-text-3" id="text-orgc191f7a">
+</div>
+<ul class="org-ul">
+<li><a id="org6c28e14"></a>User tracking<br />
+<div class="outline-text-4" id="text-org6c28e14">
+<ul class="org-ul">
+<li>cookies, tracking pixels, browser fingerprinting<br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="org3cd897d"></a>Security is broken<br />
+<div class="outline-text-4" id="text-org3cd897d">
+<ul class="org-ul">
+<li>too many (unknown) CAs trusted by default<br /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgf2b15d5"></a>Pages heavy &amp; hard to know what's downloaded<br />
+<div class="outline-text-4" id="text-orgf2b15d5">
+<ul class="org-ul">
+<li>DuckDuckGo: 26 requests - 1.3MB of content - 7 scripts<br /></li>
+<li>Google.com: 35 requests - 2.2MB of content - 11 scripts<br /></li>
+</ul>
+</div>
+</li>
+<li><a id="org83aafbd"></a>Layout &amp; formatting defined by the creator<br />
+<div class="outline-text-4" id="text-org83aafbd">
+<ul class="org-ul">
+<li>lots on the screen at once &#x2013; distracting<br /></li>
+<li>page complexity and weight &#x2013; accessibility?<br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org0df891d" class="outline-2">
+<h2 id="org0df891d">Gemini</h2>
+<div class="outline-text-2" id="text-org0df891d">
+</div>
+<div id="outline-container-org587274b" class="outline-3">
+<h3 id="org587274b">Gemini Overview</h3>
+<div class="outline-text-3" id="text-org587274b">
+</div>
+<ul class="org-ul">
+<li><a id="org1563810"></a>Started June 2019: Gemini is a new internet protocol that:<br />
+<div class="outline-text-4" id="text-org1563810">
+<ul class="org-ul">
+<li>is heavier than gopher<br /></li>
+<li>is lighter than the web<br /></li>
+<li>will not replace either<br /></li>
+<li>strives for maximum power to weight ratio<br /></li>
+<li>takes user privacy very seriously<br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="org82363ea"></a>Gemini Specifications<br />
+<div class="outline-text-4" id="text-org82363ea">
+<p>
+<a href="https://gemini.circumlunar.space/docs/specification.html">https://gemini.circumlunar.space/docs/specification.html</a><br />
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-org3b8a896" class="outline-3">
+<h3 id="org3b8a896">Gemini Goals</h3>
+<div class="outline-text-3" id="text-org3b8a896">
+<p>
+FAQ: <a href="gemini://gemini.circumlunar.space/docs/faq.gmi">gemini://gemini.circumlunar.space/docs/faq.gmi</a><br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="org7b85344"></a>Gemini - a new application-level Internet protocol<br />
+<div class="outline-text-4" id="text-org7b85344">
+<ul class="org-ul">
+<li>for distributing of arbitrary files<br /></li>
+<li>a lightweight hypertext format<br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="org1d14e9e"></a>Gemini is for people who are:<br />
+<div class="outline-text-4" id="text-org1d14e9e">
+<ul class="org-ul">
+<li>opposed to the web's ubiquitous tracking of users<br /></li>
+<li>tired of nagging pop-ups, obnoxious adverts, autoplaying videos<br /></li>
+<li>interested in low-power computing and/or low-speed networks<br /></li>
+</ul>
+</div>
+</li>
+<li><a id="org1f51106"></a>You may think of Gemini as<br />
+<div class="outline-text-4" id="text-org1f51106">
+<ul class="org-ul">
+<li>"the web, stripped right back to its essence", OR<br /></li>
+<li>"Gopher, souped up and modernised just a little"<br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org911b9c8" class="outline-3">
+<h3 id="org911b9c8">Gopher - before the WWW</h3>
+<div class="outline-text-3" id="text-org911b9c8">
+</div>
+<ul class="org-ul">
+<li><a id="org0107a09"></a>Gopher predates the web<br />
+<div class="outline-text-4" id="text-org0107a09">
+<ul class="org-ul">
+<li>created at Uni Wisconsin, Madison<br /></li>
+<li>intended to facilitate text search<br /></li>
+<li>links documents<br /></li>
+<li>used by libraries<br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="org67526f9"></a>Gopher Image<br />
+<div class="outline-text-4" id="text-org67526f9">
+
+<div id="org003c4dd" class="figure">
+<p><img src="images/Gopher-1.png" alt="Gopher-1.png" /><br />
+</p>
+</div>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-org6c97d8e" class="outline-3">
+<h3 id="org6c97d8e">Problems with Gopher</h3>
+<div class="outline-text-3" id="text-org6c97d8e">
+<ul class="org-ul">
+<li>intended just for text<br /></li>
+<li>no support for other file types (images, video &#x2026;)<br /></li>
+<li>no security (plain text transfer)<br /></li>
+</ul>
+</div>
+<ul class="org-ul">
+<li><a id="org4bcb05c"></a>Gemini has:<br />
+<div class="outline-text-4" id="text-org4bcb05c">
+<ul class="org-ul">
+<li>arbitrary non-ASCII character sets<br /></li>
+<li>linking to content in other protocols via simple URLs<br /></li>
+<li>identifies binary content using MIME types<br /></li>
+<li>redirects to prevent broken links<br /></li>
+<li>domain-based virtual hosting<br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orga5a60d5" class="outline-3">
+<h3 id="orga5a60d5">Gemini goals</h3>
+<div class="outline-text-3" id="text-orga5a60d5">
+</div>
+<ul class="org-ul">
+<li><a id="org7dd789e"></a>Early Gemini discussion included three clear goals:<br />
+<div class="outline-text-4" id="text-org7dd789e">
+<ol class="org-ol">
+<li>it should be possible to remember the entire protocol spec<br />
+after reading it once or twice.<br /></li>
+
+<li>a basic but usable (not ultra-spartan) client should fit <br />
+in &asymp;50 lines of code in a modern language.<br /></li>
+
+<li>a client comfortable for daily use which implements every <br />
+single protocol feature should be a feasible weekend<br />
+project for a single developer.<br /></li>
+</ol>
+</div>
+</li>
+<li><a id="orgcb55ad2"></a>It will be difficult to extend in the future<br />
+<div class="outline-text-4" id="text-orgcb55ad2">
+<p>
+so it <b>stays</b> simple and privacy conscious<br />
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-org3db9be8" class="outline-3">
+<h3 id="org3db9be8">Gemini - Text formatting</h3>
+<div class="outline-text-3" id="text-org3db9be8">
+<ul class="org-ul">
+<li><b>ALL</b> styling is done by the client<br /></li>
+<li>text lines will be wrapped<br /></li>
+<li>preformatted text is not altered or wrapped<br /></li>
+<li>UTF-8 is the default character set<br /></li>
+<li>there's no inline formatting: i.e. no bold/italics<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgeaf8a01" class="outline-3">
+<h3 id="orgeaf8a01">Gemini clients control the page style</h3>
+<div class="outline-text-3" id="text-orgeaf8a01">
+
+<div id="org150ce20" class="figure">
+<p><img src="images/threebrowsers.png" alt="threebrowsers.png" /><br />
+</p>
+<p><span class="figure-number">Figure 1: </span>Same page in Lagrange, Kristall and AV98 (terminal) browsers</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org119f7ea" class="outline-3">
+<h3 id="org119f7ea">Gemini Markup</h3>
+<div class="outline-text-3" id="text-org119f7ea">
+</div>
+<ul class="org-ul">
+<li><a id="org34dceba"></a>There are five core elements:<br />
+<div class="outline-text-4" id="text-org34dceba">
+<ul class="org-ul">
+<li><b>Headings:</b> start with '#' '##' or '###'.<br />
+<ul class="org-ul">
+<li>level 1 header is usually page title.<br /></li>
+</ul></li>
+<li><b>List items:</b> begin with '*'<br /></li>
+<li><b>Quotes:</b> these lines begin with '&gt;'<br /></li>
+<li><b>Preformatted text:</b> begins/ends with lines of three backticks (```)<br /></li>
+</ul>
+<ul class="org-ul">
+<li><b>Links:</b> <i>on a new line</i>, starting with <b>=&gt;</b><br />
+=&gt; <a href="https://www.reddit.com">https://www.reddit.com</a> Reddit<br />
+=&gt; image-dir/giant-peach.jpg<br />
+=&gt; <a href="gemini://gemini.circumlunar.space/docs/specification.gmi">gemini://gemini.circumlunar.space/docs/specification.gmi</a><br />
+=&gt; <a href="mailto:fred@example.com">mailto:fred@example.com</a><br />
+=&gt; <a href="gemini://podcast.com/episode-1.mp3">gemini://podcast.com/episode-1.mp3</a><br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-orgf868979" class="outline-3">
+<h3 id="orgf868979">Why not use a subset of HTML?</h3>
+<div class="outline-text-3" id="text-orgf868979">
+<p>
+If the complexity of HTML is the problem, why not use a HTML subset:<br />
+</p>
+<ul class="org-ul">
+<li>just headers, links and blockquote?<br /></li>
+</ul>
+</div>
+<ul class="org-ul">
+<li><a id="orgfa51642"></a>Answered in FAQ (but briefly), using an HTML subset:<br />
+<div class="outline-text-4" id="text-orgfa51642">
+<ol class="org-ol">
+<li>you could never be sure what a server was sending<br />
+<ul class="org-ul">
+<li>you ask for one page: browser loads 30MB of images and 15 scripts &#x2026;<br /></li>
+</ul></li>
+<li>there's no clear delineation between Gemini and HTML sites<br /></li>
+<li>tracking/user profiling would still work<br /></li>
+<li>security of the (huge) browser still a problem<br /></li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org9202562" class="outline-3">
+<h3 id="org9202562">Let's see what Gemini users have created</h3>
+<div class="outline-text-3" id="text-org9202562">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-center" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-center">Demo: let's explore Gemini Space</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org88900ad" class="outline-3">
+<h3 id="org88900ad">What's the protocol: Gemini Request/Response</h3>
+<div class="outline-text-3" id="text-org88900ad">
+<blockquote>
+<p>
+A Gemini transaction: one request - one response:<br />
+</p>
+
+<ol class="org-ol">
+<li>Client: Opens connection<br /></li>
+<li>Server: Accepts connection<br /></li>
+<li>Client/Server: Complete TLS handshake<br /></li>
+<li>Client: Validates server certificate<br /></li>
+<li><b>Client: Sends one line Request-URL or URL+query-string)</b><br /></li>
+<li><b>Server: Sends response header (one line), closes connection</b><br /></li>
+<li><b>Server: Sends response body (text or binary data)</b><br /></li>
+<li>Server: Closes connection<br /></li>
+<li><b>Client: Handles response</b><br /></li>
+</ol>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org2ef21e4" class="outline-3">
+<h3 id="org2ef21e4">Gemini Uploads are very limited</h3>
+<div class="outline-text-3" id="text-org2ef21e4">
+<p>
+Requests and response headers are limited to 1024 bytes<br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgfc2e1da"></a>After connecting, Return status '10' uploads data from client:<br />
+<div class="outline-text-4" id="text-orgfc2e1da">
+<blockquote>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Client sends</td>
+<td class="org-left"><b><a href="gemini://mysite.com/book-request.gmi">gemini://mysite.com/book-request.gmi</a></b></td>
+</tr>
+
+<tr>
+<td class="org-left">Server responds</td>
+<td class="org-left"><b>10 What Title:</b></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">User enters</td>
+<td class="org-left">War and Peace</td>
+</tr>
+
+<tr>
+<td class="org-left">Client resends</td>
+<td class="org-left"><b><a href="gemini://mysite.com/book-request.gmi?War\%20and\%20Peace">gemini://mysite.com/book-request.gmi?War\%20and\%20Peace</a></b></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">server Responds</td>
+<td class="org-left"><b>20 text/gemini; charset=utf-8</b></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">The contents of War and Peace</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</li>
+</ul>
+</div>
+
+
+
+<div id="outline-container-org2b7cb58" class="outline-3">
+<h3 id="org2b7cb58">TLS Certificate TOFU vs "Known" Validation</h3>
+<div class="outline-text-3" id="text-org2b7cb58">
+</div>
+<ul class="org-ul">
+<li><a id="org38f0d41"></a>Gemini uses TLS v1.3 (ideally) or v1.2<br />
+<div class="outline-text-4" id="text-org38f0d41">
+<ul class="org-ul">
+<li>no certificate authority required<br /></li>
+<li>users are based on "Trust on First Use" (TOFU) - like SSH<br /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgd17d324"></a>Sites can identify returning users by their TLS certificate<br />
+<div class="outline-text-4" id="text-orgd17d324">
+<ul class="org-ul">
+<li>no need for cookies for 'session persistence'<br /></li>
+<li>clients can support multiple certificates - user chooses<br /></li>
+<li>if a certificate is deleted, that identity is <i>gone</i><br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3dca5fc" class="outline-2">
+<h2 id="org3dca5fc">Gemini Software</h2>
+<div class="outline-text-2" id="text-org3dca5fc">
+</div>
+<div id="outline-container-org1a899a8" class="outline-3">
+<h3 id="org1a899a8">Gemini Servers</h3>
+<div class="outline-text-3" id="text-org1a899a8">
+<p>
+Very little load on server - Raspberry Pi is fine<br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgb207d29"></a>Jetforce - written in Python 3<br />
+<div class="outline-text-4" id="text-orgb207d29">
+<ul class="org-ul">
+<li>easy to set up<br /></li>
+<li>has CGI interface<br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="org2feccbb"></a>Agate - written in Rust<br />
+<div class="outline-text-4" id="text-org2feccbb">
+<ul class="org-ul">
+<li>Installation: <a href="gemini://gem.chriswere.uk/gemserver.gmi">gemini://gem.chriswere.uk/gemserver.gmi</a><br /></li>
+<li>or a video tutorial:<br /></li>
+</ul>
+<p>
+<a href="https://share.tube/videos/watch/4fe4e1f0-7896-4b8c-bfb8-2ff19c78d8e5">https://share.tube/videos/watch/4fe4e1f0-7896-4b8c-bfb8-2ff19c78d8e5</a><br />
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org6b1ec7f" class="outline-3">
+<h3 id="org6b1ec7f">Gemini Browsers</h3>
+<div class="outline-text-3" id="text-org6b1ec7f">
+<p>
+There's <i>lots</i> of gemini software: <a href="https://gemini.circumlunar.space/software/">https://gemini.circumlunar.space/software/</a><br />
+</p>
+
+<ul class="org-ul">
+<li><b>Lagrange:</b> <a href="https://github.com/skyjake/lagrange/releases/tag/v1.4.0">https://github.com/skyjake/lagrange/releases/tag/v1.4.0</a><br /></li>
+<li><b>Kristall:</b> <a href="https://github.com/MasterQ32/kristall">https://github.com/MasterQ32/kristall</a><br /></li>
+<li><b>Amfora:</b> - terminal based client<br />
+<ul class="org-ul">
+<li>Playing with Gemini &amp; Amfora: <a href="https://www.youtube.com/watch?v=i-iZ3R9U5ug">https://www.youtube.com/watch?v=i-iZ3R9U5ug</a><br /></li>
+</ul></li>
+<li><b>Elpher</b> for Emacs - via Melpa<br /></li>
+<li><b>Android:</b> Ariane from Play Store<br /></li>
+<li><b>iPhone/Pad</b> Elaho from App Store and <a href="https://github.com/pitr/gemini-ios">https://github.com/pitr/gemini-ios</a><br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdc3ce6e" class="outline-3">
+<h3 id="orgdc3ce6e">Quick overview of Lagrange</h3>
+<div class="outline-text-3" id="text-orgdc3ce6e">
+<p>
+Lagrange is the most feature-rich Gemini browser:<br />
+</p>
+<ul class="org-ul">
+<li>it looks really nice!<br /></li>
+<li>multiple tabs<br /></li>
+<li>subscriptions<br /></li>
+<li>inlining of images and audio<br />
+=&gt; <a href="gemini://fixato.org/2021-03-18-drawing-with-kiddos-crayons.gmi">gemini://fixato.org/2021-03-18-drawing-with-kiddos-crayons.gmi</a><br /></li>
+<li>clear certificate management<br /></li>
+<li>split-screen view<br /></li>
+<li>available for Linux, Mac and Windows<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org46d9fbe" class="outline-3">
+<h3 id="org46d9fbe">Gemini's not just text:  Images loaded on request</h3>
+<div class="outline-text-3" id="text-org46d9fbe">
+</div>
+<ul class="org-ul">
+<li><a id="orgc810456"></a>Gemini's designer intended:<br />
+<div class="outline-text-4" id="text-orgc810456">
+<ul class="org-ul">
+<li>one request, one response: no hidden network activity<br /></li>
+<li>images can be inlined OR loaded in external viewer &#x2013; <b>client decides</b><br /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgd771051"></a>An example of a photo album in Gemini<br />
+<div class="outline-text-4" id="text-orgd771051">
+<p>
+See<br />
+</p>
+<ul class="org-ul">
+<li><a href="gemini://fixato.org/2021-03-10-eye-of-fixato-an-example-photo-album-for-gemini.gmi">gemini://fixato.org/2021-03-10-eye-of-fixato-an-example-photo-album-for-gemini.gmi</a><br /></li>
+</ul>
+<p>
+It has<br />
+</p>
+<ul class="org-ul">
+<li>one image as an index<br /></li>
+<li>detailed descriptions, which are good for accessibility<br /></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org2dc0549" class="outline-2">
+<h2 id="org2dc0549">"Built on Gemini"</h2>
+<div class="outline-text-2" id="text-org2dc0549">
+</div>
+<div id="outline-container-org9583286" class="outline-3">
+<h3 id="org9583286">Subscribing to Gemini pages</h3>
+<div class="outline-text-3" id="text-org9583286">
+<p>
+Options: Browser detects change in page headings OR simple day-timestamp scheme:<br />
+</p>
+<blockquote>
+<p>
+Welcome to my Gemlog, where you can read every Friday about my adventures in urban gardening and abstract algebra!<br />
+</p>
+
+<p>
+## My posts<br />
+=&gt; <b>bokashi.gmi              2020-11-20 - Early Bokashi composting experiments</b><br />
+=&gt; <b>finite-simple-groups.gmi 2020-11-13 - Trying to get to grips with finite simple groups&#x2026;</b><br />
+=&gt; <b>balcony.gmi              2020-11-06 - I started a balcony garden!</b><br />
+</p>
+
+<p>
+## Other gemlogs I enjoy<br />
+=&gt; <a href="gemini://example.com/foo/">gemini://example.com/foo/</a>    Abelard Lindsay's gemlog<br />
+=&gt; <a href="gemini://example.net/bar/">gemini://example.net/bar/</a>    Vladimir Harkonnen's gemlog<br />
+=&gt; <a href="gemini://example.org/baz/">gemini://example.org/baz/</a>    Case Pollard's gemlog<br />
+</p>
+</blockquote>
+<p>
+from <a href="gemini://gemini.circumlunar.space/docs/companion/subscription.gmi">gemini://gemini.circumlunar.space/docs/companion/subscription.gmi</a><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc3e3306" class="outline-3">
+<h3 id="orgc3e3306">What are people doing with it?</h3>
+<div class="outline-text-3" id="text-orgc3e3306">
+<p>
+Lots<br />
+</p>
+<ul class="org-ul">
+<li><b>Gemini-to-Web proxy</b> - <a href="https://portal.mozz.us">https://portal.mozz.us</a><br /></li>
+<li><b>Gemini Quickstart</b> - <a href="gemini://geminiquickst.art/">gemini://geminiquickst.art/</a><br /></li>
+<li><b>Gemini Search:</b> <a href="gemini://geminispace.info">gemini://geminispace.info</a><br /></li>
+<li><b>Geminispace aggregator</b> - <a href="gemini://gemini.circumlunar.space/capcom">gemini://gemini.circumlunar.space/capcom</a><br /></li>
+<li><b>TrouserMonkey.net</b> &#x2013; <a href="gemini://trousermonkey.net">gemini://trousermonkey.net</a><br /></li>
+<li><b>Blogging Client in 30 lines</b> <br />
+&#x2013; <a href="gemini://spool-five.com/gemlog/2021-04-01-second_script.gmi">gemini://spool-five.com/gemlog/2021-04-01-second_script.gmi</a><br /></li>
+<li><b>Blogging</b> &#x2013; <a href="gemini://fixato.org/2020-03-25-an-uneventful-day.gmi">gemini://fixato.org/2020-03-25-an-uneventful-day.gmi</a><br /></li>
+<li><b>Podcasts</b> &#x2013; <a href="gemini://gem.chriswere.uk/trendytalk/">gemini://gem.chriswere.uk/trendytalk/</a><br /></li>
+<li><b>Proxying other services:</b><br />
+<ul class="org-ul">
+<li>HackerNews - <a href="https://news.ycombinator.com/item?id=25986378">https://news.ycombinator.com/item?id=25986378</a><br /></li>
+</ul></li>
+</ul>
+
+<p>
+Mastodon: <a href="https://mastodon.social/tags/gemini">https://mastodon.social/tags/gemini</a><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3459f5a" class="outline-3">
+<h3 id="org3459f5a">Small Web (smolweb) related sites</h3>
+<div class="outline-text-3" id="text-org3459f5a">
+<ul class="org-ul">
+<li><b>Tilde sites:</b> e.g.<br />
+<ul class="org-ul">
+<li><a href="https://tildeverse.org/">https://tildeverse.org/</a> <br /></li>
+<li><a href="https://tilde.team/">https://tilde.team/</a> <br /></li>
+<li><a href="gemini://tilde.team">gemini://tilde.team</a>  &#x2013; Free Gemini Hosting<br /></li>
+</ul></li>
+<li><b>Pubnixes:</b> Public Unix servers<br />
+Super Dimensional Fortress:<br />
+<ul class="org-ul">
+<li><a href="https://sdf.org">https://sdf.org</a><br /></li>
+<li><a href="https://sdfeu.org">https://sdfeu.org</a><br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org322e71a" class="outline-3">
+<h3 id="org322e71a">Interesting Gemini sites</h3>
+<div class="outline-text-3" id="text-org322e71a">
+<ul class="org-ul">
+<li><b>Konpeito is quarterly Lo-fi hip-hop &amp; chill mixtape</b> - <a href="gemini://konpeito.media">gemini://konpeito.media</a><br /></li>
+<li><b>xj9 - tech blog</b> <a href="gemini://sunshinegardens.org/~xj9">gemini://sunshinegardens.org/~xj9</a><br /></li>
+<li><b>Sunshine Gardens:</b> <a href="gemini://sunshinegardens.org">gemini://sunshinegardens.org</a><br /></li>
+<li><b>How I use RSS:</b> <a href="gemini://gemlog.blue/users/joelchrono12/1612624540.gmi">gemini://gemlog.blue/users/joelchrono12/1612624540.gmi</a> <br /></li>
+<li><p>
+<b>Progress to Offline first:</b> -<br />
+</p></li>
+<li><b>News sites proxied to Gemini:</b> <a href="gemini://simplynews.metalune.xyz">gemini://simplynews.metalune.xyz</a><br /></li>
+<li><b>One Hundred Rabbits (resilience, offline-first, sailing, cooking, Plan9, design):</b>\\ <a href="gemini://gemini.circumlunar.space/users/hundredrabbits">gemini://gemini.circumlunar.space/users/hundredrabbits</a><br /></li>
+<li><b>Gembooks &amp; .gpub - an eBook format using Gemini:</b><br />
+<ul class="org-ul">
+<li><a href="https://codeberg.org/oppenlab/gempub">https://codeberg.org/oppenlab/gempub</a><br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga18111e" class="outline-3">
+<h3 id="orga18111e">Conclusion</h3>
+<div class="outline-text-3" id="text-orga18111e">
+</div>
+<ul class="org-ul">
+<li><a id="org3fd500a"></a>Gemini<br />
+<div class="outline-text-4" id="text-org3fd500a">
+<ul class="org-ul">
+<li><b>for users</b><br />
+<ul class="org-ul">
+<li>provides very simple and accessible markup for creating pages<br /></li>
+<li>is suitable for many (but not all) documents<br /></li>
+<li>provides an ad-free, secure, and distraction-free environment<br /></li>
+<li>provides a human-scale community of users<br /></li>
+</ul></li>
+
+<li><b>for developers</b><br />
+<ul class="org-ul">
+<li>is simple enough to encourage experimentation<br /></li>
+<li>simple gemtext markup is easily mapped to other formats<br /></li>
+<li>has low hardware and network traffic requirements<br /></li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="org09ecdcf"></a><br />
+<div class="outline-text-4" id="text-org09ecdcf">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-center" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-center">QUESTIONS?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-org34d88d7" class="outline-3">
+<h3 id="org34d88d7">Links &amp; Reuse/License</h3>
+<div class="outline-text-3" id="text-org34d88d7">
+</div>
+<ul class="org-ul">
+<li><a id="org1ddd459"></a>Links<br />
+<div class="outline-text-4" id="text-org1ddd459">
+<ul class="org-ul">
+<li><b>Getting Started with Gemini:</b> <a href="gemini://geminiquickst.art">gemini://geminiquickst.art</a> &larr; <b>Really Good</b><br /></li>
+<li><b>Gemini Home:</b> <a href="https://gemini.circumlunar.space">https://gemini.circumlunar.space</a><br /></li>
+<li><b>Gemini Search:</b> <a href="gemini://geminispace.info">gemini://geminispace.info</a><br /></li>
+<li><b>Gemini on Mastodon:</b> <a href="https://mastodon.social/web/timelines/tag/gemini">https://mastodon.social/web/timelines/tag/gemini</a><br /></li>
+</ul>
+</div>
+</li>
+
+<li><a id="orgddc60c3"></a>Reuse this presentation<br />
+<div class="outline-text-4" id="text-orgddc60c3">
+
+<div id="orgc159e5f" class="figure">
+<p><img src="images-external/cc-by-sa.png" alt="cc-by-sa.png" /><br />
+</p>
+</div>
+
+<p>
+This presentation is Copyright (C) 2021 Giovanni Moretti.<br />
+</p>
+
+<p>
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. For more information, go to<br />
+&nbsp;&nbsp; <a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br />
+</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giovanni Moretti - giovanni@reflections.co.nz</p>
+<p class="date">Created: 2021-05-17 Mon 20:28</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

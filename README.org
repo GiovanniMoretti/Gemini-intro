@@ -1,0 +1,39 @@
+#+options: toc:nil num:nil ^:{} broken-links:t
+#+title:Readme
+
+* The target audience
+This presentation was created for a Linux User Group and so is intended for a technically literate audience.
+
+It's intended to illustrate why someone might be interested in adopting a new protocol, the range of pages and tools already available, and links to interesting page, and to the Gemini home and Quickstart 
+
+When presenting this, I already had open:
+  - the Lagrange Gemini browser with a dozen+ tabs open 
+
+  - a web browser preloaded to the gemini 'available software' page, and showing
+  Mastodon with #gemini tag filter makes it clear there's lots going on ...
+
+This makes it easy so swap from the presentation and illustrate the diversity of what can be found in the Gemini ecosystem.
+
+** Building the presentation 
+
+The presentation is created using Emacs Orgmode, which is now included as part of Emacs. Orgmode is a text markup language that can be exported to many targets, and the one I'm using is exporting the LaTex "Beamer" presentation framework.
+
+You'll need Emacs and Latex[fn:1] installed.
+
+Then start 
+1.  emacs gemini-intro.org
+2.  Inside Emacs, export to create the PDF:
+    - Ctrl-C Ctrl-E l O         ('l' is latex export subsection, 'O' is Beamer)
+
+This will create gemini-intro.pdf
+
+If you've never used Emacs or Latex before, this might be a stretch, so I've included an export to HTML as well. This isn't (directly) suitable for presenting but does make the content easy to cut and paste.
+
+** Credits
+I've adapted sections of the Gemini Documentation and FAQ from https://gemini.circumlunar.space. Many thanks.
+
+* Footnotes
+
+[fn:1] On Ubuntu 
+: sudo apt install emacs texlive-full
+The full version of texlive probably isn't necessary but once it's installed, there won't be any missing packages.
