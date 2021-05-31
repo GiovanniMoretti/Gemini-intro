@@ -1,0 +1,362 @@
+#+setupfile: ./beamer-presentation-setup.org
+
+#+latex_header: \usepackage[T1]{fontenc}
+#+latex_header: \usepackage[utf8]{inputenc}
+
+# Change bold text to dark red
+#+latex_header: \definecolor{mydarkred}{RGB}{180, 0, 0}
+#+latex_header: \renewcommand{\alert}[1]{\textbf{\textcolor{mydarkred}{#1}}}
+ 
+# Uncomment one of the following lines to determine whether you get 
+# the progressive reveal of slides on a mouse click ('presentation')
+# or one complete page/slide (no animation) - 'handout'
+
+#+latex_class_options: [presentation, 11pt,  aspectratio=169]
+# latex_class_options: [handout, a4paper, 11pt, aspectratio=169]
+
+#+OPTIONS: h:1 ^:{} tex:t broken-links:t
+#+startup: indent
+
+# Each level 1 heading is a slide
+
+#+title: Gemini - a quieter web experience
+#+subtitle: niceness through simplicity
+
+#+author: Giovanni Moretti - giovanni@reflections.co.nz
+
+* Problems with WWW
+- *User tracking*: 
+  - cookies, tracking pixels, browser fingerprinting
+
+- *Pages bloated & source is opaque*
+  - Google.com: 35 requests - 2.2MB of content - 11 scripts
+
+- *Layout & formatting defined by the creator*
+  - busy screen -- distracting
+  - page complexity -- accessibility?
+  {{{pause}}}
+#+latex: \vspace{1.5em}
+** Web browsers are /really/ complicated ...
+ - HTML-5, CSS-3, JavaScript, rendering images/PDF, playing audio/video, cookies, SSL ...
+ - implausible to start from scratch
+\rightarrow *Attack surface is huge*
+
+* Gemini 
+** Gemini is a new Internet protocol (June 2019)
+- for distributing of arbitrary files 
+- lightweight hypertext format
+- takes user privacy very seriously
+- heavier than Gopher, lighter than the Web, won't replace either
+{{{pause}}}
+
+** Very different approach to security
+ - very restricted feature set
+ - whitelist vs. Web's blacklist
+
+* Gemini goals
+** Simplicity
+- a developer can write a client in a weekend
+- possible to remember entire protocol spec
+    - \approx600 lines (12 x A4 pages)
+
+** It will be /difficult to extend/ in the future
+so it *stays* simple and privacy conscious
+
+** Gemini's designer intended:
+- one request, one response: no hidden network activity
+- images can be inlined OR loaded in external viewer -- *client decides*
+
+
+* Why not use a subset of HTML?
+
+
+- there'd be no clear separation between Gemini and HTML sites
+- browser would still interpret whatever was sent - you never know
+    - request page of text \rightarrow browser loads hidden iframes and 15 scripts ...
+- too tempting to 'add just one more feature'
+- tracking/user profiling would still work
+
+
+* Gemini - Text formatting
+- UTF-8 is the default
+- no inline formatting: i.e. no bold/italics
+- all text except preformatted blocks are line-wrapped
+- *ALL* styling is done by the client
+
+
+* Gemini Markup is line-oriented
+** Six core elements
+| <l>                 | <l>                                        |
+|                     |                                            |
+| Line Type           | Start of line                              |
+|---------------------+--------------------------------------------|
+| *Heading*           | # \nbsp ## \nbsp ###                       |
+| *List item*         | *                                          |
+| *Quote*             | >                                          |
+| *Preformatted text* | *```* line before and after                |
+| *Link*              | =>                                         |
+| *Body Text*         | all else                                   |
+|---------------------+--------------------------------------------|
+| link examples       | => gemini://gemini.circumlunar.space       |
+|                     | => https://www.reddit.com REDDIT Home Page |
+|                     | => image-dir/giant-peach.jpg               |
+|                     | => mailto:fred@example.com  Email me       |
+|                     | => gemini://podcast.com/episode-1.mp3      |
+|---------------------+--------------------------------------------|
+
+
+* Sample Gemini page - gemini://friendo.monster/log/lace.gmi - 3314 bytes
+#+begin_scriptsize
+#+begin_example
+# A script to interleave tiny Gemini logs
+18 Feb 2021
+
+I guess what this script is, really, is a client-of-sorts for Gemini tiny logs. Which is kinda like micro-blogging on Gemini.
+
+,*Client* is overstating it though. It's written in the laziest, simplest way I can think of and it will collapse if the content is not as it expects.
+
+Let's call it a first pass.
+
+=> https://gitlab.com/uoou/dotfiles/-/tree/master/stow/bin/home/drew/.local/bin/lace
+
+If you want to give it a go, just
+
+```
+wget https://gitlab.com/uoou/dotfiles/-/raw/master/stow/bin/home/drew/.local/bin/lace
+chmod +x lace
+```
+
+And then either put it somewhere in your `$PATH` or call it with `./lace`.
+
+Here's what it looks like *in action*...
+
+=> /images/lace.png
+
+## How do it works?
+
+To add a subscription to a tiny log, just do
+#+end_example
+#+end_scriptsize
+
+* Rendered in Lagrange
+#+attr_latex: 1\linewidth
+[[file:images/gemini-sample-friendo.monster.png]]
+
+* or with a dark theme
+#+attr_latex: 1\linewidth
+[[file:images/gemini-sample-lace-dark.png]]
+* Gemini clients control the page style
+
+#+attr_latex: :width 0.95\textwidth
+#+caption: Same page - three browsers: Lagrange, Kristall and AV98 (terminal)
+[[file:images/threebrowsers.png]]
+
+* Let's see what Gemini users have created
+
+
+|                         <c>                          |
+| Demo:   selection of Gemini pages viewed in Lagrange |
+|                                                      |
+
+* What's the protocol: Gemini Request/Response
+
+#+begin_quote
+1. Client: Opens connection
+2. Server: Accepts connection
+3. Client/Server: Complete TLS handshake
+4. Client: Validates server certificate
+5. *Client: Sends one line Request-URL or URL+query-string*
+6. *Server: Sends one line response header*
+7. *Server: Sends response body (text/binary data)*, Closes connection
+8. *Client: Handles response*
+#+end_quote
+
+* Using TLS Certificates
+** Gemini uses TLS v1.3 (ideally) or v1.2
+- no certificate authority required
+- users are based on "Trust on First Use" (TOFU) - like SSH
+
+{{{pause}}}
+** No Cookies: identify users by their TLS certificate
+- clients support multiple certificates - user chooses
+- if a certificate is deleted, that identity is /gone/
+
+
+* Gemini Uploads are very limited                           :noexport:
+
+Requests and response headers are limited to 1024 bytes
+
+** After connecting, Return status '10' uploads data from client:
+
+#+begin_quote
+|                 |                                                            |
+|-----------------+------------------------------------------------------------|
+| Client sends    | *gemini://mysite.com/book-request.gmi*                     |
+| Server responds | *10 What Title:*                                           |
+|-----------------+------------------------------------------------------------|
+| User enters     | War and Peace                                              |
+| Client resends  | *gemini://mysite.com/book-request.gmi?War\%20and\%20Peace* |
+|-----------------+------------------------------------------------------------|
+| server Responds | *20 text/gemini; charset=utf-8*                            |
+|                 | The contents of War and Peace                              |
+|-----------------+------------------------------------------------------------|
+#+end_quote
+
+* Gemini Servers                                            :noexport:
+Very little load on server - Raspberry Pi is fine
+
+** Jetforce - written in Python 3
+- easy to set up
+- has CGI interface
+
+** Agate - written in Rust
+- Installation: gemini://gem.chriswere.uk/gemserver.gmi
+- or a video tutorial:\\
+#+latex: \begin{small}
+    https://share.tube/videos/watch/4fe4e1f0-7896-4b8c-bfb8-2ff19c78d8e5
+#+latex: \end{small}
+
+* Gemini Software
+** Desktop browsers
+ - *Lagrange* - https://github.com/skyjake/lagrange/releases/tag/v1.4.0
+ - *Kristall* - https://github.com/MasterQ32/kristall
+ - *Amfora & AV98* - terminal based clients
+ - *Elpher* for Emacs - via Melpa
+** Mobile browsers
+ - *Android* - Ariane from Play Store *\leftarrow Easy to try*
+ - *iPhone/Pad* - Elaho from App Store and https://github.com/pitr/gemini-ios
+
+** Recommended Servers: Agate (Rust) & Jetforce (Python)
+
+There's /lots/ of gemini software: https://gemini.circumlunar.space/software/
+* Quick overview of Lagrange
+/Lagrange/ - the most feature-rich Gemini browser:
+- it looks really nice!
+- multiple tabs
+- subscriptions
+- inlining of images and audio
+- clear certificate management
+- split-screen view
+- available for Linux, Mac and Windows
+
+
+* Subscribing to Gemini pages
+
+Options: Browser detects change in page headings OR simple day-timestamp scheme:
+#+latex: \begin{footnotesize}
+#+begin_quote
+# J. Random Geminaut's gemlog
+
+Welcome to my Gemlog, where you can read every Friday about my adventures in urban gardening and abstract algebra!
+
+## My posts
+=> *bokashi.gmi              2020-11-20 - Early Bokashi composting experiments*
+=> *finite-simple-groups.gmi 2020-11-13 - Trying to get to grips with finite simple groups...*
+=> *balcony.gmi              2020-11-06 - I started a balcony garden!*
+
+## Other gemlogs I enjoy
+=> gemini://example.com/foo/    Abelard Lindsay's gemlog
+=> gemini://example.net/bar/    Vladimir Harkonnen's gemlog
+=> gemini://example.org/baz/    Case Pollard's gemlog
+#+end_quote
+#+latex: \end{footnotesize}
+from gemini://gemini.circumlunar.space/docs/companion/subscription.gmi
+
+* What are people doing with it?
+- *Blogging* -- gemini://fixato.org/2020-03-25-an-uneventful-day.gmi
+- *Podcasts* -- gemini://gem.chriswere.uk/trendytalk/
+- *News sites proxied to Gemini:* gemini://simplynews.metalune.xyz
+- *Gembooks - an eBook format using Gemini:*
+  - https://codeberg.org/oppenlab/gempub
+- *Blogging Client in 30 lines* \\
+  -- gemini://spool-five.com/gemlog/2021-04-01-second_script.gmi
+- *xj9 - tech blog* gemini://sunshinegardens.org/~xj9
+- *Sunshine Gardens:* gemini://sunshinegardens.org
+- *One Hundred Rabbits (resilience, offline-first, sailing, cooking, Plan9, design):*\\ gemini://gemini.circumlunar.space/users/hundredrabbits
+- *Konpeito is quarterly Lo-fi hip-hop & chill mixtape* - gemini://konpeito.media
+
+On Social Media: Mastodon - https://mastodon.social/tags/gemini
+
+
+* Small Web (smolweb) related sites
+- *Tilde sites:* e.g.
+   - https://tildeverse.org/ 
+   - https://tilde.team/ 
+   - gemini://tilde.team  -- Free Gemini Hosting 
+- *Pubnixes:* Public Unix servers\\
+   Super Dimensional Fortress: 
+   - https://sdf.org
+   - https://sdfeu.org
+
+
+* Konpeito Retro tapes - announced on Mastodon.social 
+#+caption: gemini://konpeito.media
+#+attr_latex: :height 0.75\textheight
+[[file:images/konpeito-1.png]]
+
+* Konpeito inside Lagrange browser - expanded view
+#+attr_latex: :width 0.75\linewidth
+[[file:images/konpeito-expanded-in-Lagrange.png]]
+
+* Why do you like Gemini?
+#+latex: \vspace{2em}
+    #+begin_quote
+    @pytpu it just works. No cookies/tracking/ads or broken web standards.\\
+    
+    It's simply your content presented in the way you want it to be. \ldots\\
+    
+    Also all the people around there are nice and friendly ...\\
+    
+    *This shouldn't just co-exist with the web, \\
+    it should be default for everyone.*
+
+    #+begin_scriptsize
+    Leonie <@koyu@koyu.space> -- https://koyu.space/@koyu/106113153639591891
+    #+end_scriptsize
+    #+end_quote
+
+#+latex: \vspace{2em}
+**                                                         :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+begin_scriptsize
+Survey summary: gemini://nytpu.com/why-gemini.gmi
+#+end_scriptsize
+
+
+* Conclusion 
+** Gemini
+- *for users*
+  - a very simple and accessible markup for creating pages
+  - suitable for many (but not all) documents
+  - provides an ad-free, secure, and distraction-free environment
+
+- *for developers*
+  - is simple enough to encourage experimentation
+  - gemtext markup is easily mapped to other formats
+  - has low hardware and network traffic requirements
+{{{pause}}}
+** Interested?
+- *Getting Started with Gemini:* gemini://geminiquickst.art \leftarrow *Really Good*
+- *Gemini Home:* https://gemini.circumlunar.space
+- *Gemini on Mastodon:* https://mastodon.social/web/timelines/tag/gemini
+
+
+* Reuse/License
+
+** Reuse this presentation
+#+attr_latex: :width 0.25\textwidth
+[[file:images-external/cc-by-sa.png]]
+
+#+latex: \begin{small}
+This presentation is Copyright (C) 2021 Giovanni Moretti.
+
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. For more information, go to\\
+\nbsp\nbsp http://creativecommons.org/licenses/by-sa/4.0/
+#+latex: \end{small}
+
+
+
+
+

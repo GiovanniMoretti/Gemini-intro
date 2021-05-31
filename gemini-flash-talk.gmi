@@ -1,0 +1,419 @@
+# Gemini - a quieter web experience
+
+
+
+# Problems with WWW
+
+* *User tracking*:
+* cookies, tracking pixels, browser fingerprinting
+
+* *Pages bloated & source is opaque*
+* Google.com: 35 requests - 2.2MB of content - 11 scripts
+
+* *Layout & formatting defined by the creator*
+* busy screen -- distracting
+* page complexity -- accessibility?
+
+
+## Web browsers are /really/ complicated ...
+
+* HTML-5, CSS-3, JavaScript, rendering images/PDF, playing
+audio/video, cookies, SSL ...
+* implausible to start from scratch
+-> *Attack surface is huge*
+
+
+# Gemini
+
+## Gemini is a new Internet protocol (June 2019)
+
+* for distributing of arbitrary files
+* lightweight hypertext format
+* takes user privacy very seriously
+* heavier than Gopher, lighter than the Web, won't replace either
+
+
+## Very different approach to security
+
+* very restricted feature set
+* whitelist vs. Web's blacklist
+
+
+# Gemini goals
+
+## Simplicity
+
+* a developer can write a client in a weekend
+* possible to remember entire protocol spec
+* [almost equal to]600 lines (12 x A4 pages)
+
+
+## It will be /difficult to extend/ in the future
+
+so it *stays* simple and privacy conscious
+
+
+## Gemini's designer intended:
+
+* one request, one response: no hidden network activity
+* images can be inlined OR loaded in external viewer -- *client
+decides*
+
+
+# Why not use a subset of HTML?
+
+* there'd be no clear separation between Gemini and HTML sites
+* browser would still interpret whatever was sent - you never know
+* request page of text -> browser loads hidden iframes and 15
+scripts ...
+* too tempting to 'add just one more feature'
+* tracking/user profiling would still work
+
+
+# Gemini - Text formatting
+
+* UTF-8 is the default
+* no inline formatting: i.e. no bold/italics
+* all text except preformatted blocks are line-wrapped
+* *ALL* styling is done by the client
+
+
+# Gemini Markup is line-oriented
+
+## Six core elements
+
+``` table
+                                                                     
+ Line Type            Start of line                                  
+---------------------------------------------------------------------
+ *Heading*            #   ##   ###                                   
+ *List item*          *                                              
+ *Quote*              >                                              
+ *Preformatted text*  *```* line before and after                    
+ *Link*               =>                                             
+ *Body Text*          all else                                       
+---------------------------------------------------------------------
+ link examples        => <<gemini://gemini.circumlunar.space>>       
+                      => <<https://www.reddit.com>> REDDIT Home Page 
+                      => image-dir/giant-peach.jpg                   
+                      => <<mailto:fred@example.com>>  Email me       
+                      => <<gemini://podcast.com/episode-1.mp3>>      
+---------------------------------------------------------------------
+```
+
+
+=> gemini://gemini.circumlunar.space gemini://gemini.circumlunar.space
+=> https://www.reddit.com https://www.reddit.com
+=> mailto:fred@example.com mailto:fred@example.com
+=> gemini://podcast.com/episode-1.mp3 gemini://podcast.com/episode-1.mp3
+
+
+# Sample Gemini page - <<gemini://friendo.monster/log/lace.gmi>> - 3314 bytes
+
+,----
+| # A script to interleave tiny Gemini logs
+| 18 Feb 2021
+| 
+| I guess what this script is, really, is a client-of-sorts for Gemini tiny logs. Which is kinda like micro-blogging on Gemini.
+| 
+| *Client* is overstating it though. It's written in the laziest, simplest way I can think of and it will collapse if the content is not as it expects.
+| 
+| Let's call it a first pass.
+| 
+| => https://gitlab.com/uoou/dotfiles/-/tree/master/stow/bin/home/drew/.local/bin/lace
+| 
+| If you want to give it a go, just
+| 
+| ```
+| wget https://gitlab.com/uoou/dotfiles/-/raw/master/stow/bin/home/drew/.local/bin/lace
+| chmod +x lace
+| ```
+| 
+| And then either put it somewhere in your `$PATH` or call it with `./lace`.
+| 
+| Here's what it looks like *in action*...
+| 
+| => /images/lace.png
+| 
+| ## How do it works?
+| 
+| To add a subscription to a tiny log, just do
+`----
+
+
+=> gemini://friendo.monster/log/lace.gmi gemini://friendo.monster/log/lace.gmi
+
+
+# Rendered in Lagrange
+
+<<file:images/gemini-sample-friendo.monster.png>>
+
+
+=> file:images/gemini-sample-friendo.monster.png file:images/gemini-sample-friendo.monster.png
+
+
+# or with a dark theme
+
+<<file:gemini-sample-lace-dark.png>>
+
+
+=> file:gemini-sample-lace-dark.png file:gemini-sample-lace-dark.png
+
+
+# Gemini clients control the page style
+
+<<file:images/threebrowsers.png>>
+
+
+=> file:images/threebrowsers.png file:images/threebrowsers.png
+
+
+# Let's see what Gemini users have created
+
+``` table
+ Demo: let's explore Gemini Space 
+```
+
+
+# What's the protocol: Gemini Request/Response
+
+> * Client: Opens connection
+* Server: Accepts connection
+* Client/Server: Complete TLS handshake
+* Client: Validates server certificate
+* *Client: Sends one line Request-URL or
+ URL+query-string*
+* *Server: Sends one line response header*
+* *Server: Sends response body (text/binary data)*,
+ Closes connection
+* *Client: Handles response*
+
+
+# Using TLS Certificates
+
+## Gemini uses TLS v1.3 (ideally) or v1.2
+
+* no certificate authority required
+* users are based on "Trust on First Use" (TOFU) - like SSH
+
+
+## No Cookies: identify users by their TLS certificate
+
+* clients support multiple certificates - user chooses
+* if a certificate is deleted, that identity is /gone/
+
+
+# Gemini Software
+
+## Desktop browsers
+
+* *Lagrange* -
+ <<https://github.com/skyjake/lagrange/releases/tag/v1.4.0>>
+* *Kristall* - <<https://github.com/MasterQ32/kristall>>
+* *Amfora & AV98* - terminal based clients
+* *Elpher* for Emacs - via Melpa
+
+
+=> https://github.com/skyjake/lagrange/releases/tag/v1.4.0 https://github.com/skyjake/lagrange/releases/tag/v1.4.0
+=> https://github.com/MasterQ32/kristall https://github.com/MasterQ32/kristall
+
+
+## Mobile browsers
+
+* *Android* - Ariane from Play Store *<- Easy to try*
+* *iPhone/Pad* - Elaho from App Store and
+ <<https://github.com/pitr/gemini-ios>>
+
+
+=> https://github.com/pitr/gemini-ios https://github.com/pitr/gemini-ios
+
+
+## Recommended Servers: Agate (Rust) & Jetforce (Python)
+
+There's /lots/ of gemini software:
+<<https://gemini.circumlunar.space/software/>>
+
+
+=> https://gemini.circumlunar.space/software/ https://gemini.circumlunar.space/software/
+
+
+# Quick overview of Lagrange
+
+/Lagrange/ - the most feature-rich Gemini browser:
+* it looks really nice!
+* multiple tabs
+* subscriptions
+* inlining of images and audio
+* clear certificate management
+* split-screen view
+* available for Linux, Mac and Windows
+
+
+# Subscribing to Gemini pages
+
+Options: Browser detects change in page headings OR simple
+day-timestamp scheme:
+> Welcome to my Gemlog, where you can read every Friday
+about my adventures in urban gardening and abstract
+algebra!
+
+## My posts
+=> *bokashi.gmi 2020-11-20 - Early Bokashi composting
+experiments*
+=> *finite-simple-groups.gmi 2020-11-13 - Trying to get to
+grips with finite simple groups...*
+=> *balcony.gmi 2020-11-06 - I started a balcony garden!*
+
+## Other gemlogs I enjoy
+=> <<gemini://example.com/foo/>> Abelard Lindsay's gemlog
+=> <<gemini://example.net/bar/>> Vladimir Harkonnen's
+gemlog
+=> <<gemini://example.org/baz/>> Case Pollard's gemlog
+from
+<<gemini://gemini.circumlunar.space/docs/companion/subscription.gmi>>
+
+
+=> gemini://example.com/foo/ gemini://example.com/foo/
+=> gemini://example.net/bar/ gemini://example.net/bar/
+=> gemini://example.org/baz/ gemini://example.org/baz/
+=> gemini://gemini.circumlunar.space/docs/companion/subscription.gmi gemini://gemini.circumlunar.space/docs/companion/subscription.gmi
+
+
+# What are people doing with it?
+
+* *Blogging* --
+ <<gemini://fixato.org/2020-03-25-an-uneventful-day.gmi>>
+* *Podcasts* -- <<gemini://gem.chriswere.uk/trendytalk/>>
+* *News sites proxied to Gemini:* <<gemini://simplynews.metalune.xyz>>
+* *Gembooks - an eBook format using Gemini:*
+* <<https://codeberg.org/oppenlab/gempub>>
+* *Blogging Client in 30 lines*
+-- <<gemini://spool-five.com/gemlog/2021-04-01-second_script.gmi>>
+* *xj9 - tech blog* <<gemini://sunshinegardens.org/~xj9>>
+* *Sunshine Gardens:* <<gemini://sunshinegardens.org>>
+* *One Hundred Rabbits (resilience, offline-first, sailing, cooking,
+ Plan9, design):*\\
+ <<gemini://gemini.circumlunar.space/users/hundredrabbits>>
+* *Konpeito is quarterly Lo-fi hip-hop & chill mixtape* -
+ <<gemini://konpeito.media>>
+
+On Social Media: Mastodon - <<https://mastodon.social/tags/gemini>>
+
+
+=> gemini://fixato.org/2020-03-25-an-uneventful-day.gmi gemini://fixato.org/2020-03-25-an-uneventful-day.gmi
+=> gemini://gem.chriswere.uk/trendytalk/ gemini://gem.chriswere.uk/trendytalk/
+=> gemini://simplynews.metalune.xyz gemini://simplynews.metalune.xyz
+=> https://codeberg.org/oppenlab/gempub https://codeberg.org/oppenlab/gempub
+=> gemini://spool-five.com/gemlog/2021-04-01-second_script.gmi gemini://spool-five.com/gemlog/2021-04-01-second_script.gmi
+=> gemini://sunshinegardens.org/~xj9 gemini://sunshinegardens.org/~xj9
+=> gemini://sunshinegardens.org gemini://sunshinegardens.org
+=> gemini://gemini.circumlunar.space/users/hundredrabbits gemini://gemini.circumlunar.space/users/hundredrabbits
+=> gemini://konpeito.media gemini://konpeito.media
+=> https://mastodon.social/tags/gemini https://mastodon.social/tags/gemini
+
+
+# Small Web (smolweb) related sites
+
+* *Tilde sites:* e.g.
+* <<https://tildeverse.org/>>
+* <<https://tilde.team/>>
+* <<gemini://tilde.team>> -- Free Gemini Hosting
+* *Pubnixes:* Public Unix servers
+Super Dimensional Fortress:
+* <<https://sdf.org>>
+* <<https://sdfeu.org>>
+
+
+=> https://tildeverse.org/ https://tildeverse.org/
+=> https://tilde.team/ https://tilde.team/
+=> gemini://tilde.team gemini://tilde.team
+=> https://sdf.org https://sdf.org
+=> https://sdfeu.org https://sdfeu.org
+
+
+# Konpeito Retro tapes - announced on Mastodon.social
+
+<<file:images/konpeito-1.png>>
+
+
+=> file:images/konpeito-1.png file:images/konpeito-1.png
+
+
+# Konpeito inside Lagrange browser - expanded view
+
+<<file:konpeito3-expanded-v2.png>>
+
+
+=> file:konpeito3-expanded-v2.png file:konpeito3-expanded-v2.png
+
+
+# Why do you like Gemini?
+
+> @pytpu it just works. No cookies/tracking/ads or broken
+web standards.
+
+It's simply your content presented in the way you want it
+to be. \ldots
+
+Also all the people around there are nice and friendly ...
+
+*This shouldn't just co-exist with the web,
+it should be default for everyone.*
+
+Leonie <@koyu@koyu.space> --
+<<https://koyu.space/@koyu/106113153639591891>>
+
+
+=> https://koyu.space/@koyu/106113153639591891 https://koyu.space/@koyu/106113153639591891
+## :B_ignoreheading:
+
+Survey summary: <<gemini://nytpu.com/why-gemini.gmi>>
+
+
+=> gemini://nytpu.com/why-gemini.gmi gemini://nytpu.com/why-gemini.gmi
+
+
+# Conclusion
+
+## Gemini
+
+* *for users*
+* a very simple and accessible markup for creating pages
+* suitable for many (but not all) documents
+* provides an ad-free, secure, and distraction-free environment
+
+* *for developers*
+* is simple enough to encourage experimentation
+* gemtext markup is easily mapped to other formats
+* has low hardware and network traffic requirements
+
+
+## Interested?
+
+* *Getting Started with Gemini:* <<gemini://geminiquickst.art>> <-
+ *Really Good*
+* *Gemini Home:* <<https://gemini.circumlunar.space>>
+* *Gemini on Mastodon:*
+ <<https://mastodon.social/web/timelines/tag/gemini>>
+
+
+=> gemini://geminiquickst.art gemini://geminiquickst.art
+=> https://gemini.circumlunar.space https://gemini.circumlunar.space
+=> https://mastodon.social/web/timelines/tag/gemini https://mastodon.social/web/timelines/tag/gemini
+
+
+# Reuse/License
+
+## Reuse this presentation
+
+<<file:images-external/cc-by-sa.png>>
+
+This presentation is Copyright (C) 2021 Giovanni Moretti.
+
+This work is licensed under a Creative Commons Attribution-ShareAlike
+4.0 International License. For more information, go to
+   <<http://creativecommons.org/licenses/by-sa/4.0/>>
+
+
+=> file:images-external/cc-by-sa.png file:images-external/cc-by-sa.png
+=> http://creativecommons.org/licenses/by-sa/4.0/ http://creativecommons.org/licenses/by-sa/4.0/
